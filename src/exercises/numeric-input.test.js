@@ -1,4 +1,4 @@
-import { html, fixture, expect } from "@open-wc/testing";
+import { expect } from "@open-wc/testing";
 // Import your NumericInput component
 import NumericInput from "./numeric-input";
 

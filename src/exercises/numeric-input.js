@@ -40,14 +40,16 @@ const NumericInput = {
   handleInput: (event) => {
     const value = event.target.value.trim();
 
+    // Check if the value is empty
     if (value === "") {
       NumericInput.resetElement();
     } else if (NumericInput.isValidInput(value)) {
       // Remove error state
-      NumericInput.removeErrorState();
+      NumericInput.resetElement();
       // Add valid class to input element
       event.target.classList.add("c-numeric-input--valid");
     } else {
+      // Set error state
       NumericInput.setErrorState();
     }
   },
@@ -60,8 +62,8 @@ const NumericInput = {
   // Function to handle blur event
   handleBlur: (event) => {
     var value = event.target.value.trim();
-    // Input element
 
+    // Check if the value is valid
     if (NumericInput.isValidInput(value)) {
       // Check if the value has a leading zero
       if (
@@ -80,12 +82,14 @@ const NumericInput = {
       }
 
       // Remove error state
-      NumericInput.removeErrorState();
+      NumericInput.resetElement();
       // Update the input value
       event.target.value = value;
 
       // Add valid class to input element once the value is not empty, is valid, formatted, and the error message span is removed
-      value !== "" ? event.target.classList.add("c-numeric-input--valid") : null;
+      value !== ""
+        ? event.target.classList.add("c-numeric-input--valid")
+        : null;
     } else {
       NumericInput.setErrorState();
     }
@@ -111,7 +115,9 @@ const NumericInput = {
     inputElement.classList.remove("c-numeric-input--valid");
 
     // Create error message span if one does not exist
-    const errorSpan = document.querySelector(".c-numeric-input__error-msg") || document.createElement("span");
+    const errorSpan =
+      document.querySelector(".c-numeric-input__error-msg") ||
+      document.createElement("span");
     // Add class to error span
     errorSpan.classList.add("c-numeric-input__error-msg");
     // Add aria-label to error span
@@ -123,16 +129,6 @@ const NumericInput = {
 
     // Use insertAdjacentElement instead of insertAdjacentHTML due to better security - insertAdjacentHTML may allow for XSS attacks
     inputElement.insertAdjacentElement("afterend", errorSpan);
-  },
-
-  // Function to remove error state
-  removeErrorState() {
-    const inputElement = document.querySelector(".c-numeric-input");
-    // Remove error classes from input element
-    inputElement.classList.remove("c-numeric-input--error");
-
-    // Locate error span in document and remove
-    document.querySelector(".c-numeric-input__error-msg")?.remove();
   },
 
   // Function to reset element
