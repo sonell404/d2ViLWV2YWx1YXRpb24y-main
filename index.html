@@ -3,39 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Exercise Document - Gen Digital" />
+    <meta name="author" content="Gen Digital" />
     <link rel="stylesheet" href="/src/components/tab/tab.css" />
     <link rel="stylesheet" href="/style.css" />
-    <!-- import javascript file from src -->
-    <script src="/src/exercises/numeric-input.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <title>Document</title>
+    <title>Exercise Document - Gen Digital</title>
   </head>
   <body>
     <div id="root" role="main">
       <div class="c-tab" data-default-tab="0">
         <div class="c-tab--btns" role="tablist">
-          <button
-            role="tab"
-            aria-controls="tab0"
-            aria-selected="true"
-            data-for-tab="0"
-          >
+          <button role="tab" aria-controls="tab0" data-for-tab="0">
             Numeric Input
           </button>
-          <button
-            role="tab"
-            aria-controls="tab1"
-            aria-selected="false"
-            data-for-tab="1"
-          >
+          <button role="tab" aria-controls="tab1" data-for-tab="1">
             Relative Dates
           </button>
-          <button
-            role="tab"
-            aria-controls="tab2"
-            aria-selected="false"
-            data-for-tab="2"
-          >
+          <button role="tab" aria-controls="tab2" data-for-tab="2">
             Shopping Cart
           </button>
         </div>
@@ -81,8 +65,8 @@
             <table id="shopping-cart-tbl" border="1" cellpadding="16px">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Item</th>
+                  <th aria-label="Product ID">ID</th>
+                  <th aria-label="Product Description">Item</th>
                 </tr>
               </thead>
               <tbody></tbody>

@@ -41,6 +41,9 @@ const View = {
         const row = document.createElement("tr");
         const idCell = document.createElement("td");
         const nameCell = document.createElement("td");
+        // Add relevant aria attributes to the cells
+        idCell.setAttribute("aria-label", product.id);
+        nameCell.setAttribute("aria-label", product.name);
 
         // Set the text content of the cells
         idCell.textContent = productId;
