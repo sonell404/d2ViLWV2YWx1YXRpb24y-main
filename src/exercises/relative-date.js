@@ -13,46 +13,80 @@
  * Lastly, please write a unit test for calculateRelativeDate function
  * */
 
-function calculateRelativeDate(date) {
-  const today = new Date();
-  const inputDate = new Date(date);
+import { DateTime } from "luxon";
 
-  // Compare the year, month, and date of the input date with the current date
-  if (
-    inputDate.getFullYear() === today.getFullYear() &&
-    inputDate.getMonth() === today.getMonth() &&
-    inputDate.getDate() === today.getDate()
-  ) {
-    return "Today";
-  }
+const calculateRelativeDate = (inputDate) => {
+  // Current date
+  const today = DateTime.local();
+  // Current week number
+  const currentWeek = today.weekNumber;
+  // Current month
+  const currentMonth = today.month;
+  // Current year
+  const currentYear = today.year;
 
-  // Calculate the difference in milliseconds between the input date and the current date
-  const timeDiff = today.getTime() - inputDate.getTime();
-  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  // Input date
+  const input = DateTime.fromISO(inputDate);
+  // Input week number
+  const inputWeek = input.weekNumber;
+  // Input month
+  const inputMonth = input.month;
+  // Input year
+  const inputYear = input.year;
 
-  // Compare the difference in days with the predefined ranges
-  if (daysDiff === 1) {
-    return "Yesterday";
-  } else if (daysDiff > 1 && daysDiff <= 7) {
-    return "This week";
-  } else if (daysDiff > 7 && daysDiff <= 14) {
-    return "Last week";
-  } else if (
-    inputDate.getFullYear() === today.getFullYear() &&
-    inputDate.getMonth() === today.getMonth() &&
-    inputDate.getDate() <= today.getDate() - 14
-  ) {
-    return "This month";
-  } else if (inputDate.getMonth() === today.getMonth() - 1) {
-    return "Last month";
-  } else if (inputDate.getFullYear() === today.getFullYear()) {
-    return "This year";
-  } else if (inputDate.getFullYear() === today.getFullYear() - 1) {
-    return "Last year";
-  } else {
-    return "Long time ago";
-  }
-}
+  // Calculate the difference between the two dates using toRelativeCalendar()
+  const diff = input.toRelativeCalendar(today);
+
+  const returnMessage = () => {
+    // If the input date is today, return message is today
+    if (diff === "today") {
+      return "Today";
+    }
+
+    // If the input date is yesterday, return message is yesterday
+    if (diff === "yesterday") {
+      return "Yesterday";
+    }
+
+    // If the input date is within the current week, return message is this week
+    if (inputYear === currentYear && inputWeek === currentWeek) {
+      return "This week";
+    }
+
+    // If the input date is within the last week of the same year, return message is last week
+    if (inputYear === currentYear && inputWeek === currentWeek - 1) {
+      return "Last week";
+    }
+
+    // If the input date is within the current month of the same year, return message is this month
+    if (inputYear === currentYear && inputMonth === currentMonth) {
+      return "This month";
+    }
+
+    // If the input date is within the last month of the same year, return message is last month
+    if (inputYear === currentYear && inputMonth === currentMonth - 1) {
+      return "Last month";
+    }
+
+    // If the input date is within the current year, return message is this year
+    if (inputYear === currentYear) {
+      return "This year";
+    }
+
+    // If the input date is within the last year, return message is last year
+    if (inputYear === currentYear - 1) {
+      return "Last year";
+    }
+
+    // If the input date is not within the last 2 years, return message is long time ago
+    if (inputYear < currentYear - 1) {
+      return "Long time ago";
+    }
+  };
+
+  // Return the difference
+  return returnMessage();
+};
 
 const View = {
   init: () => {
