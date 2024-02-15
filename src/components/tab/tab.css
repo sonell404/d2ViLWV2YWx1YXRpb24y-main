@@ -1,0 +1,11 @@
+.c-tab--btns {display: flex; flex-direction: row; gap: 1rem;}
+.c-tab--content {
+    padding: 1rem;
+}
+.c-tab--content > * {
+    display: none;
+}
+
+.c-tab--content > .c-tab--active {
+    display: block;
+}

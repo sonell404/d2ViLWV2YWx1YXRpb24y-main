@@ -1,0 +1,7 @@
+.c-numeric-input--error {
+    border: 1px solid #f00;
+}
+
+.c-numeric-input--valid {
+    border: 1px solid #0f0;
+}
