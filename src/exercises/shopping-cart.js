@@ -55,6 +55,9 @@ const View = {
         tbodyElem.appendChild(row);
       }
     });
+
+    // Save cart to local storage
+    localStorage.setItem("cart", JSON.stringify(productIds));
   },
 };
 
