@@ -22,10 +22,17 @@ const View = {
       .getElementById("shopping-cart-tbl")
       .querySelector("tbody");
 
-    // Fetch product IDs from cart API
-    const cartResponse = await fetch("http://localhost:4002/cart");
-    const cartData = await cartResponse.json();
-    const productIds = cartData.map((item) => item.id);
+    // Check if there's an existing cart in local storage
+    let productIds = [];
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      productIds = JSON.parse(storedCart);
+    } else {
+      // Fetch product IDs from cart API if not found in local storage
+      const cartResponse = await fetch("http://localhost:4002/cart");
+      const cartData = await cartResponse.json();
+      productIds = cartData.map((item) => item.id);
+    }
 
     // Fetch product details from products API
     const productsResponse = await fetch("http://localhost:4002/products");
