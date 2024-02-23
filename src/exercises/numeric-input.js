@@ -25,7 +25,6 @@
  * */
 
 const NumericInput = {
-  validInputRegex: /^-?\d*\.?\d*$/,
   // Function to initialize the component
   init: () => {
     document.querySelectorAll(".c-numeric-input").forEach((elem) => {
@@ -42,21 +41,21 @@ const NumericInput = {
 
     // Check if the value is empty
     if (value === "") {
-      NumericInput.resetElement();
+      NumericInput.resetElement(event);
     } else if (NumericInput.isValidInput(value)) {
       // Remove error state
-      NumericInput.resetElement();
+      NumericInput.resetElement(event);
       // Add valid class to input element
       event.target.classList.add("c-numeric-input--valid");
     } else {
       // Set error state
-      NumericInput.setErrorState();
+      NumericInput.setErrorState(event);
     }
   },
 
   // Function to handle focus event
   handleFocus: () => {
-    NumericInput.resetElement();
+    NumericInput.resetElement(event);
   },
 
   // Function to handle blur event
@@ -82,7 +81,7 @@ const NumericInput = {
       }
 
       // Remove error state
-      NumericInput.resetElement();
+      NumericInput.resetElement(event);
       // Update the input value
       event.target.value = value;
 
@@ -91,7 +90,7 @@ const NumericInput = {
         ? event.target.classList.add("c-numeric-input--valid")
         : null;
     } else {
-      NumericInput.setErrorState();
+      NumericInput.setErrorState(event);
     }
   },
 
@@ -100,6 +99,8 @@ const NumericInput = {
    * UTITLITY FUNCTIONS
    * ------------------
    */
+  // Valid input regex - allows for minus sign, digits, decimal point
+  validInputRegex: /^-?\d*\.?\d*$/,
 
   // Function to check if input is valid
   isValidInput(value) {
@@ -107,8 +108,8 @@ const NumericInput = {
   },
 
   // Function to set error state
-  setErrorState() {
-    const inputElement = document.querySelector(".c-numeric-input");
+  setErrorState(event) {
+    const inputElement = event.target;
     // Add error classes to input element
     inputElement.classList.add("c-numeric-input--error");
     // Remove valid class from input element
@@ -127,13 +128,14 @@ const NumericInput = {
     // Add error message to error span
     errorSpan.textContent = "invalid input";
 
-    // Use insertAdjacentElement instead of insertAdjacentHTML due to better security - insertAdjacentHTML may allow for XSS attacks
+    // Use insertAdjacentElement instead of insertAdjacentHTML due to better security
+    // insertAdjacentHTML may allow for XSS attacks
     inputElement.insertAdjacentElement("afterend", errorSpan);
   },
 
   // Function to reset element
-  resetElement() {
-    const inputElement = document.querySelector(".c-numeric-input");
+  resetElement(event) {
+    const inputElement = event.target;
     // Remove error classes from input element
     inputElement.classList.remove("c-numeric-input--error");
     // Remove valid class from input element
