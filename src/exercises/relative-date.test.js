@@ -3,6 +3,12 @@ import { calculateRelativeDate } from "./relative-date";
 import { DateTime } from "luxon";
 
 describe("calculateRelativeDate", () => {
+  // TEST FOR FUTURE
+  it('returns "Today" when the input date is today', async () => {
+    const today = DateTime.local().plus({ years: 1}).toISODate();
+    expect(calculateRelativeDate(today)).to.equal("Invalid date");
+  });
+
   // TEST FOR TODAY
   it('returns "Today" when the input date is today', async () => {
     const today = DateTime.local().toISODate();

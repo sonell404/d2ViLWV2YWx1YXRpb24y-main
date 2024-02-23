@@ -82,6 +82,9 @@ const calculateRelativeDate = (inputDate) => {
     if (inputYear < currentYear - 1) {
       return "Long time ago";
     }
+    else {
+      return "Invalid date"
+    }
   };
 
   // Return the difference
